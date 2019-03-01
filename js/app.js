@@ -1,5 +1,15 @@
 class DELL {
-
+constructor(){
+    this.api = "c1c92e6f53e4a41fc598b394a5c1766b";
+    this.header = {
+        method: 'GET',
+        headers:{
+            'user-key': this.api,
+            'Content-Type': 'application/json'
+        },
+        credentials:'same-origin'
+  } 
+ }
 }
 class UI {
 
