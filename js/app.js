@@ -32,13 +32,15 @@ if (cityLocation.length > 0) {
   cityID = await cityLocation[0].id;
 }
 //search restaurant
-
-
-
+const restaurantURL = `https://developers.zomato.com/api/v2.1/search?entity_id=${cityID}&entity_type=city&category=${categoryID}&sort=rating`;
+const restaurantInfo = await fetch(restaurantURL, this.header);
+const restaurantJSON = await restaurantInfo.json();
+const restaurants = await restaurantJSON.restaurants;
 
  return {
     categories,
-    cityID
+    cityID,
+    restaurants
   };
  }
 }
@@ -69,6 +71,15 @@ showLoader(){
  }
 hideLoader(){
     this.loader.classList.remove("showItem");
+ }
+getRestaurants(restaurants){
+this.hideLoader();
+if(restaurants.length === 0){
+    this.showFeedback("no such categories exist in the selected city");
+  }
+  else{
+      console.log(restaurants[0].restaurant);
+    }
  }
 }
 
@@ -105,6 +116,9 @@ zomato.searchAPI(city).then(cityData => {
     }
     else{
         ui.showLoader();
+        zomato.searchAPI(city,categoryID).then(data => {
+            ui.getRestaurants(data.restaurants);
+        });
     }
   });
  }
