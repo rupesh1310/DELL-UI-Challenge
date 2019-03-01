@@ -1,4 +1,4 @@
-class DELL {
+class ZOMATO {
     constructor() {
         this.api = "c1c92e6f53e4a41fc598b394a5c1766b";
         this.header = {
@@ -30,16 +30,24 @@ constructor(){
     this.restaurantList = document.getElementById('restaurant-list');
  }
  addSelectOptions(categories){
+    const search = document.getElementById("searchCategory");
+    let output = `<option value='0' selected>select category</option>`;
+    categories.forEach(category => {
+        output += `<option value="${category.categories.id}">${category.categories.name}
+        </option>`
+    })
 
+    search.innerHTML = output;
  }
+
 }
 
 (function(){
 const searchForm = document.getElementById("searchForm");
 const searchCity = document.getElementById("searchCity");
-const searchCategory = document.getElementById("searchCate");
+const searchCategory = document.getElementById("searchCategory");
 
-const dell = new DELL();
+const zomato = new ZOMATO();
 
 const ui = new UI();
 
@@ -47,6 +55,13 @@ const ui = new UI();
 //add select options
 document.addEventListener("DOMContentLoaded",()=>{
 //all the logics here
-dell.searchAPI().then(data => console.log(data));
+zomato.searchAPI().then(data => ui.addSelectOptions(data.categories));
+});
+
+searchForm.addEventListener("submit", event => {
+    event.preventDefault();
+    const city = searchCity.value.toLowerCase();
+    const categoryID = parseInt(searchCategory.value);
+    console.log(city, categoryID);
 });
 })();
