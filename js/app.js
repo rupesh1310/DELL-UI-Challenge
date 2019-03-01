@@ -10,7 +10,7 @@ class ZOMATO {
             credentials: "same-origin"
         };
     }
-async searchAPI(){
+async searchAPI(city, categoryID){
 //category url
 const categoryURL = `https://developers.zomato.com/api/v2.1/categories`;
 
@@ -36,10 +36,16 @@ constructor(){
         output += `<option value="${category.categories.id}">${category.categories.name}
         </option>`
     })
-
     search.innerHTML = output;
  }
-
+showFeedback(text){
+const feedback = document.querySelector('.feedback');
+feedback.classList.add("showItem");
+feedback.innerHTML = `<p>${text}</p>`;
+setTimeout(() => {
+    feedback.classList.remove("showItem");
+}, 3000); 
+}
 }
 
 (function(){
@@ -60,8 +66,16 @@ zomato.searchAPI().then(data => ui.addSelectOptions(data.categories));
 
 searchForm.addEventListener("submit", event => {
     event.preventDefault();
+   
     const city = searchCity.value.toLowerCase();
     const categoryID = parseInt(searchCategory.value);
-    console.log(city, categoryID);
+   
+   if(city === '' || categoryID === 0){
+    ui.showFeedback('please enter a city and select category');
+   }
+else{
+//logic goes here
+
+}
 });
 })();
