@@ -8,19 +8,19 @@ body {
   color: var(--mainDark);
 }
 .redBtn {
-  border-color: var(--mainRed);
-  color: var(--mainRed);
+  border-color: var(--mainBlue);
+  color: var(--mainBlue);
   background: transparent;
 }
 .redText {
-  color: var(--mainRed);
+  color: var(--mainBlue);
 }
 .redBtn:hover {
-  background: var(--mainRed);
+  background: var(--mainBlue);
   color: var(--mainDark);
 }
 .form-control {
-  border-color: var(--mainRed);
+  border-color: var(--mainBlue);
 }
 .feedback {
   display: none;
